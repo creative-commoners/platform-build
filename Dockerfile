@@ -3,9 +3,10 @@ FROM composer:2@sha256:e724f5bb40448f6548cc27706ec5b1e0494c10915b08d6141dce97348
 FROM php:7.4-cli@sha256:cbd8fd538f72258eb531ac9708d29a2b370c8ab933c9cc056e69100a93e01768
 
 # Install core dependencies
-RUN apt-get update && apt-get install -y curl git jq zip libzip-dev gnupg
+RUN apt-get update && apt-get install -y curl git jq zip libzip-dev gnupg libicu-dev
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 RUN pecl install zip && docker-php-ext-enable zip
+RUN docker-php-ext-configure intl && docker-php-ext-install intl
 
 # Pull Composer from base image
 COPY --from=composer /usr/bin/composer /usr/local/bin/composer

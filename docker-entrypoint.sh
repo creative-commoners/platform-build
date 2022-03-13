@@ -58,4 +58,7 @@ if [[ -f composer.lock && "$(cat composer.lock | jq '.packages[] | select(.name 
 	composer_vendor_expose
 fi
 
+echo php vendor/silverstripe/framework/cli-script.php --no-database dev/graphql/build
+php vendor/silverstripe/framework/cli-script.php  --no-database dev/graphql/build
+
 package_source ${SHA}
